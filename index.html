@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starthub Centers - Coworking & Virtual Office Solutions</title>
+    <title>Her Power Space - Virtual Office Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <style>
         * {
             margin: 0;
@@ -12,15 +15,17 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #2d3748;
+            overflow-x: hidden;
         }
 
         /* Header Styles */
         header {
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
             position: fixed;
             width: 100%;
             top: 0;
@@ -32,47 +37,110 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 0.8rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2c5aa0;
+        .logo img {
+            height: 50px;
+            width: auto;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-links > li {
+            position: relative;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: #4a5568;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
         }
 
         .nav-links a:hover {
-            color: #2c5aa0;
+            color: #d97706;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            left: -1rem;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 1.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(217, 119, 6, 0.1);
+        }
+
+        .nav-links li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: #4a5568;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .dropdown a:hover {
+            background: linear-gradient(90deg, rgba(217, 119, 6, 0.05), rgba(245, 158, 11, 0.05));
+            color: #d97706;
         }
 
         .cta-button {
-            background: #ff6b35;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
             color: white;
-            padding: 0.8rem 1.5rem;
+            padding: 0.9rem 2rem;
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
         }
 
         .cta-button:hover {
-            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+            color: white;
         }
 
         .mobile-menu {
@@ -84,17 +152,20 @@
         .hamburger {
             width: 25px;
             height: 3px;
-            background: #333;
+            background: #4a5568;
             margin: 3px 0;
             transition: 0.3s;
+            border-radius: 2px;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #fef3e2 0%, #fed7aa 50%, #fdba74 100%);
+            color: #2d3748;
             padding: 120px 2rem 80px;
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
             position: relative;
             overflow: hidden;
         }
@@ -102,104 +173,166 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            top: -50%;
+            right: -10%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
             width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,0 1000,300 1000,1000 0,700"/></svg>');
-            background-size: cover;
         }
 
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
             position: relative;
             z-index: 2;
         }
 
-        .hero h1 {
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 700;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        .hero-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #7c2d12;
+            font-weight: 600;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: #92400e;
+            line-height: 1.7;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn-primary, .btn-secondary {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
             text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.4s ease;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-primary {
-            background: #ff6b35;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
             color: white;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
         }
 
         .btn-primary:hover {
-            background: #e55a2b;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+            color: white;
         }
 
         .btn-secondary {
             background: transparent;
-            color: white;
-            border: 2px solid white;
+            color: #d97706;
+            border: 2px solid #d97706;
         }
 
         .btn-secondary:hover {
-            background: white;
-            color: #667eea;
+            background: #d97706;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
         }
 
         /* Features Section */
         .features {
-            padding: 80px 2rem;
-            background: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 100px 2rem 50px;
+            background: #ffffff;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
-            color: #2c5aa0;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2d3748;
             margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            border-radius: 2px;
         }
 
         .section-title p {
             font-size: 1.2rem;
-            color: #666;
+            color: #718096;
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -207,263 +340,616 @@
         .feature-card {
             background: white;
             padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(217, 119, 6, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(217, 119, 6, 0.15);
         }
 
         .feature-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(245, 158, 11, 0.1));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
+            margin: 0 auto 1.5rem;
             font-size: 2rem;
-            color: white;
+            color: #d97706;
+            border: 2px solid rgba(217, 119, 6, 0.2);
         }
 
         .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #718096;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Service Categories Navigation */
+        .service-nav {
+            padding: 50px 2rem;
+            background: #f7fafc;
+        }
+
+        .service-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .service-nav h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 3rem;
+        }
+
+        .service-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(217, 119, 6, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(217, 119, 6, 0.15);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .category-card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: #2c5aa0;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .category-card p {
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
+            color: white;
         }
 
         /* Services Section */
         .services {
-            padding: 80px 2rem;
+            padding: 100px 2rem;
+            background: linear-gradient(135deg, #fef3e2, #fed7aa);
+        }
+
+        .services-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .services-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .services-intro p {
+            font-size: 1.2rem;
+            color: #7c2d12;
+            margin-bottom: 2rem;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .service-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover {
-            transform: scale(1.05);
-        }
-
-        .service-image {
-            height: 200px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-
-        .service-content {
-            padding: 1.5rem;
-        }
-
-        .service-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #2c5aa0;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, #2c5aa0, #667eea);
-            color: white;
-            padding: 80px 2rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h3 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 2rem;
-            background: #f8f9fa;
-        }
-
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(217, 119, 6, 0.1);
             position: relative;
         }
 
-        .testimonial {
-            background: white;
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(217, 119, 6, 0.2);
+        }
+
+        .service-header {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            color: white;
             padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             text-align: center;
-            display: none;
-        }
-
-        .testimonial.active {
-            display: block;
-        }
-
-        .testimonial blockquote {
-            font-size: 1.3rem;
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: #555;
-        }
-
-        .testimonial-author {
-            font-weight: bold;
-            color: #2c5aa0;
-        }
-
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ccc;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .slider-dot.active {
-            background: #2c5aa0;
-        }
-
-        /* Blog Section */
-        .blog {
-            padding: 80px 2rem;
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .blog-card {
-            background: white;
-            border-radius: 15px;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
         }
 
-        .blog-card:hover {
-            transform: translateY(-5px);
+        .service-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
         }
 
-        .blog-image {
-            height: 200px;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
+        .service-card:hover .service-header::before {
+            left: 100%;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .service-features li i {
+            color: #d97706;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .service-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .service-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 2rem;
+            background: #fefefe;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.03), rgba(245, 158, 11, 0.03));
+            z-index: 1;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .about-hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-hero .subtitle {
+            font-size: 1.4rem;
+            color: #d97706;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .about-sections {
+            display: grid;
+            gap: 5rem;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 3rem 0;
+        }
+
+        .about-section:nth-child(even) {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .about-section:nth-child(even) .about-text {
+            order: 2;
+        }
+
+        .about-section:nth-child(even) .about-visual {
+            order: 1;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-visual .visual-card {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            border-radius: 30px;
+            padding: 2rem;
             color: white;
-            font-size: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .blog-content {
-            padding: 1.5rem;
+        .about-visual img {
+            width: 100p0x;
+            height: 850px;
+            object-fit: cover;
+            border-radius: 25px;
         }
 
-        .blog-content h3 {
+        .about-visual iframe {
+            width: 70%;
+            height: 300px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-visual .visual-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .visual-card .icon {
+            font-size: 4rem;
             margin-bottom: 1rem;
-            color: #2c5aa0;
+            position: relative;
+            z-index: 2;
         }
 
-        .blog-meta {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+        .visual-card .text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text .highlight {
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #d97706;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border: 2px solid #d97706;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+
+        .video-link:hover {
+            background: #d97706;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .video-link::before {
+            content: '▶';
+            font-size: 1.2rem;
         }
 
         /* Contact Section */
         .contact {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 80px 2rem;
+            padding: 100px 2rem;
+            background: #ffffff;
         }
 
-        .contact-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
         }
 
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: linear-gradient(135deg, #fef3e2, #fed7aa);
+            transform: translateX(10px);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #d97706;
+            min-width: 30px;
         }
 
         .contact-form {
-            display: grid;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 2rem auto 0;
+            background: linear-gradient(135deg, #fef3e2, #fed7aa);
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .contact-form input,
-        .contact-form textarea {
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
             padding: 1rem;
-            border: none;
+            border: 2px solid rgba(217, 119, 6, 0.2);
             border-radius: 10px;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
         }
 
-        .contact-form button {
-            background: #ff6b35;
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #d97706;
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
             color: white;
-            padding: 1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .contact-form button:hover {
-            background: #e55a2b;
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 50px 2rem;
+            background: #f7fafc;
+        }
+
+        #googleMap {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a5568;
+            font-size: 1.1rem;
         }
 
         /* Footer */
         footer {
-            background: #2c5aa0;
+            background: #1a202c;
             color: white;
-            padding: 60px 2rem 20px;
+            padding: 80px 2rem 30px;
         }
 
         .footer-content {
@@ -471,12 +957,14 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #ff6b35;
+            margin-bottom: 1.5rem;
+            color: #fbbf24;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
         }
 
         .footer-section ul {
@@ -484,25 +972,27 @@
         }
 
         .footer-section ul li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-section ul li a {
-            color: #ccc;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
 
         .footer-section ul li a:hover {
-            color: white;
+            color: #fbbf24;
         }
 
         .footer-bottom {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid #4a6bc5;
-            color: #ccc;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
         }
 
         /* Responsive Design */
@@ -515,8 +1005,9 @@
                 width: 100%;
                 background: white;
                 flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border-radius: 0 0 15px 15px;
             }
 
             .nav-links.active {
@@ -527,27 +1018,66 @@
                 display: flex;
             }
 
-            .hero h1 {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-text h1 {
                 font-size: 2.5rem;
             }
 
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
+            .hero-text h2 {
+                font-size: 1.3rem;
             }
 
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .services-intro h2 {
+                font-size: 2.2rem;
             }
 
             .features-grid,
             .services-grid,
-            .blog-grid {
+            .service-categories {
                 grid-template-columns: 1fr;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .about-section:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section:nth-child(even) .about-text {
+                order: 1;
+            }
+
+            .about-section:nth-child(even) .about-visual {
+                order: 2;
+            }
+
+            .about-hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-visual iframe {
+                height: 250px;
             }
         }
 
@@ -555,7 +1085,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.6s ease;
+            transition: all 0.8s ease;
         }
 
         .fade-in.visible {
@@ -563,37 +1093,55 @@
             transform: translateY(0);
         }
 
-        /* Scrollbar Styling */
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #f7fafc;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #2c5aa0;
+            background: linear-gradient(135deg, #d97706, #f59e0b);
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #1e3f73;
+            background: linear-gradient(135deg, #b45309, #d97706);
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header id="header">
         <nav>
-            <div class="logo">Starthub Centers</div>
+            <div class="logo"><img src="Copy of HerPowerSpaceBLK (1) (1) (1).PNG" alt="Her Power Space"></div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#locations">Locations</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="#services">Services</a>
+                    <div class="dropdown">
+                        <a href="#virtual-office">Virtual Office</a>
+                        <a href="#virtual-mail">Virtual Mail</a>
+                        <a href="#coworking">Co-working Space</a>
+                        <a href="#private-office">Private Office</a>
+                        <a href="#conference">Conference Room</a>
+                        <a href="#podcast">Podcast/Content Creation</a>
+                        <a href="#events">Event Space</a>
+                        <a href="#mail-forwarding">Mail Forwarding</a>
+                        <a href="#scanning">Scanning Service</a>
+                        <a href="#notary">Notary By Appointment</a>
+                    </div>
+                </li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#find">Find Us</a></li>
+                <li><a href="#about">About Us</a></li>
             </ul>
             <a href="#contact" class="cta-button">Get Started</a>
             <div class="mobile-menu" id="mobileMenu">
@@ -606,12 +1154,28 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content fade-in">
-            <h1>Premium Coworking & Virtual Office Solutions</h1>
-            <p>Whether you're just starting or growing your business, our team implemented business features to help you connect better and do more with your time.</p>
-            <div class="hero-buttons">
-                <a href="#services" class="btn-primary">Explore Services</a>
-                <a href="#contact" class="btn-secondary">Get Quote</a>
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-text">
+                    <h1>Welcome to Her Power Space!</h1>
+                    <h2>Virtual Office Solutions</h2>
+                    <p>Your #1 Virtual Office Solutions in Lauderhill, Florida starts here. 
+                        We are your one stop shop for a professional and fundable business 
+                        that every smart entrepreneur desires.</p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn-primary">
+                            <i class="bi bi-rocket-takeoff"></i>
+                            Get Started
+                        </a>
+                        <a href="#features" class="btn-secondary">
+                            <i class="bi bi-info-circle"></i>
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="filler.png" alt="Modern office space" />
+                </div>
             </div>
         </div>
     </section>
@@ -620,29 +1184,79 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>Why Choose Starthub Centers?</h2>
-                <p>Stay in control of your budget with simple, non-commitment contracts and prices that fit every budget. Our solutions start at $29/month.</p>
+                <h2>Why Choose Her Power Space?</h2>
+                <p>Everything you need for a Professional and Fundable Business in One Place</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card fade-in">
-                    <div class="feature-icon">💼</div>
-                    <h3>Professional Support</h3>
-                    <p>Think of us as an extension of your company's team. Our professional, highly trained staff are equipped to help you succeed where it counts.</p>
+                    <div class="feature-icon">
+                        <i class="bi bi-house-door"></i>
+                    </div>
+                    <h3>Real Street Address</h3>
+                    <p>Keep your home address private and use ours for your business registration and mail handling.</p>
                 </div>
                 <div class="feature-card fade-in">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Quick Setup</h3>
-                    <p>We understand that time is of the essence when it comes to your business. With just a few simple steps, you can be up and running in no time.</p>
+                    <div class="feature-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <h3>Business Phone Number</h3>
+                    <p>Professional phone service without sharing your personal number or needing a second device.</p>
                 </div>
                 <div class="feature-card fade-in">
-                    <div class="feature-icon">🏢</div>
-                    <h3>Premium Locations</h3>
-                    <p>We pride ourselves on providing only the best for our clients. Our top-notch locations ensure that your business is positioned for success.</p>
+                    <div class="feature-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <h3>Google My Business</h3>
+                    <p>Professional business listing setup and management to boost your online presence.</p>
                 </div>
                 <div class="feature-card fade-in">
-                    <div class="feature-icon">💰</div>
-                    <h3>Budget Friendly</h3>
-                    <p>Stay in control of your budget with simple, non-commitment contracts and prices that fit every budget starting at $29/month.</p>
+                    <div class="feature-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <h3>Live Answering Service</h3>
+                    <p>Professional call handling and client communication management by trained agents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Categories Navigation -->
+    <section class="service-nav" id="service-nav">
+        <div class="service-nav-container">
+            <h2>Our Services</h2>
+            <div class="service-categories">
+                <div class="category-card fade-in">
+                    <div class="category-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <h3>Offices</h3>
+                    <p>Virtual and private office solutions for your professional needs</p>
+                    <a href="#contact" class="category-btn">
+                        <i class="bi bi-calendar-check"></i>
+                        Schedule
+                    </a>
+                </div>
+                <div class="category-card fade-in">
+                    <div class="category-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3>Working Spaces</h3>
+                    <p>Co-working spaces, conference rooms, and event venues</p>
+                    <a href="#contact" class="category-btn">
+                        <i class="bi bi-calculator"></i>
+                        Get Quote
+                    </a>
+                </div>
+                <div class="category-card fade-in">
+                    <div class="category-icon">
+                        <i class="bi bi-gear"></i>
+                    </div>
+                    <h3>Other Services</h3>
+                    <p>Notary services, mail forwarding, and scanning solutions</p>
+                    <a href="#contact" class="category-btn">
+                        <i class="bi bi-calendar-check"></i>
+                        Schedule
+                    </a>
                 </div>
             </div>
         </div>
@@ -651,126 +1265,132 @@
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="container">
-            <div class="section-title fade-in">
-                <h2>Find Your Ideal Office Solution</h2>
-                <p>Browse our categories and find the perfect workspace solution for your business needs.</p>
+            <div class="services-intro fade-in">
+                <h2>Tailored Work Solutions to Fit Your Needs</h2>
+                <p>Choose your perfect business setup with our comprehensive packages designed for every stage of your entrepreneurial journey.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card fade-in">
-                    <div class="service-image">🏢</div>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </div>
+                        <div class="service-title">START UP</div>
+                        <div class="service-subtitle">Business Virtual Office (Premium)</div>
+                    </div>
                     <div class="service-content">
-                        <h3>Private Offices</h3>
-                        <p>Share a private office or have one all to yourself to minus distractions and multiply productivity. Accommodate from 1 to 20 persons.</p>
+                        <ul class="service-features">
+                            <li><i class="bi bi-check-circle-fill"></i>Real street address</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Unique suite number</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Google My Business listing</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Bing for Business listing</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Discounted postage for mail forwarding</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Registered Agent (State compliance)</li>
+                        </ul>
+                        <button class="service-btn">
+                            <i class="bi bi-arrow-right"></i>
+                            I want this
+                        </button>
                     </div>
                 </div>
+
                 <div class="service-card fade-in">
-                    <div class="service-image">💻</div>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="service-title">BOSS UP</div>
+                        <div class="service-subtitle">Most Popular Package</div>
+                    </div>
                     <div class="service-content">
-                        <h3>Shared Workspace</h3>
-                        <p>Share an office or have one all to yourself to minus distractions and multiply productivity. You can accommodate from 1 to 20 persons.</p>
+                        <ul class="service-features">
+                            <li><i class="bi bi-check-circle-fill"></i>Real street address</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Unique suite number</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Google My Business listing</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Bing for Business listing</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Discounted postage for mail forwarding</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Registered Agent (State compliance)</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Shredding service</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Free scans (first 10 pages) per month</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Business phone number</li>
+                            <li><i class="bi bi-check-circle-fill"></i>1 hour private office access</li>
+                            <li><i class="bi bi-check-circle-fill"></i>2 x coworking day pass</li>
+                            <li><i class="bi bi-check-circle-fill"></i>10% off all additional services</li>
+                        </ul>
+                        <button class="service-btn">
+                            <i class="bi bi-arrow-right"></i>
+                            I want this
+                        </button>
                     </div>
                 </div>
+
                 <div class="service-card fade-in">
-                    <div class="service-image">🤝</div>
-                    <div class="service-content">
-                        <h3>Meeting Rooms</h3>
-                        <p>Host a meeting for an hour, half a day or a full day at a professional office and impress your guests. Host up to 12 people in our state-of-the-art rooms.</p>
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="bi bi-gem"></i>
+                        </div>
+                        <div class="service-title">HIGHER UP</div>
+                        <div class="service-subtitle">Premium Business Package</div>
                     </div>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-image">📍</div>
                     <div class="service-content">
-                        <h3>Virtual Office</h3>
-                        <p>Get a prestigious business address without the overhead costs. Perfect for remote businesses that need a professional presence.</p>
+                        <ul class="service-features">
+                            <li><i class="bi bi-check-circle-fill"></i>Real street address</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Unique suite number</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Google My Business listing</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Bing for Business listing</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Discounted postage for mail forwarding</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Registered Agent (State compliance)</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Shredding service</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Unlimited scans</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Business phone number</li>
+                            <li><i class="bi bi-check-circle-fill"></i>2 hour private office access</li>
+                            <li><i class="bi bi-check-circle-fill"></i>4 x coworking day pass</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Live answering service</li>
+                            <li><i class="bi bi-check-circle-fill"></i>30% off all additional services</li>
+                        </ul>
+                        <button class="service-btn">
+                            <i class="bi bi-arrow-right"></i>
+                            I want this
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
+    <!-- About Section -->
+    <section class="about" id="about">
         <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item fade-in">
-                    <h3>2015</h3>
-                    <p>Incorporated</p>
+            <div class="about-content fade-in">
+                <div class="about-hero">
+                    <h2>Our Story</h2>
+                    <p class="subtitle">Empowering entrepreneurs through community and innovation</p>
                 </div>
-                <div class="stat-item fade-in">
-                    <h3>4</h3>
-                    <p>States Coverage</p>
-                </div>
-                <div class="stat-item fade-in">
-                    <h3>10,000+</h3>
-                    <p>Trusted Clients</p>
-                </div>
-                <div class="stat-item fade-in">
-                    <h3>24/7</h3>
-                    <p>Concierge Support</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>What Our Clients Say</h2>
-                <p>We value the feedback of our clients, and are always looking for ways to improve our services.</p>
-            </div>
-            <div class="testimonial-slider">
-                <div class="testimonial active fade-in">
-                    <blockquote>"With little to no resources, but just enough ambition to compensate for it we made it work. We transformed remote work from a disadvantage into Squareshot's core asset."</blockquote>
-                    <div class="testimonial-author">- Mark Johnson, CEO</div>
-                </div>
-                <div class="testimonial fade-in">
-                    <blockquote>"I highly recommend Starthub and I am really glad I made the switch from WeWork; The offices are impressive and the staff is genuinely looking after all my needs."</blockquote>
-                    <div class="testimonial-author">- Benjamin S., Founder</div>
-                </div>
-                <div class="testimonial fade-in">
-                    <blockquote>"I started with a Virtual office and have been able to upgrade to a desk and then a private office progressively. The Starthub team has been an entire part of my growth process."</blockquote>
-                    <div class="testimonial-author">- Laura S., Freelancer</div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <div class="slider-dot active" onclick="showTestimonial(0)"></div>
-                <div class="slider-dot" onclick="showTestimonial(1)"></div>
-                <div class="slider-dot" onclick="showTestimonial(2)"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section class="blog" id="blog">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Latest Business Insights</h2>
-                <p>Our blog resources section is full of expert advice and insights on a range of business topics.</p>
-            </div>
-            <div class="blog-grid">
-                <div class="blog-card fade-in">
-                    <div class="blog-image">📈</div>
-                    <div class="blog-content">
-                        <div class="blog-meta">Business Growth</div>
-                        <h3>Must Read Articles for Small Business Growth</h3>
-                        <p>Small business growth may have fluctuations and can often plateau. If you find your business...</p>
+                
+                <div class="about-sections">
+                    <div class="about-section fade-in">
+                        <div class="about-visual">
+                            <img src="owners.png" alt="Her Power Space Owners">
+                        </div>
+                        <div class="about-text">
+                            <h3>Where We Are Now</h3>
+                            <p>The legacy baton for <span class="highlight">Her Power Space (HPS)</span> was passed on in May 2024 when a few friends, then existing customers of HPS, agreed to purchase the business from its previous owner and founder Michelle Talbert Esq.</p>
+                            <p>Kadiann, Ashergay and Patsy formed <span class="highlight">Gold KAP Management Inc.</span> and purchased Her Power Space. The trio now turned duo of Kadiann & Patsy are actively building on the legacy of Michelle, by strengthening the foundation and ensuring that the residents of the city of Lauderhill and surrounding communities have access to the necessary resources for starting, and growing their own successful business.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="blog-card fade-in">
-                    <div class="blog-image">🎯</div>
-                    <div class="blog-content">
-                        <div class="blog-meta">Marketing</div>
-                        <h3>Customer Acquisition Strategies</h3>
-                        <p>Do you have customer acquisition strategies in place for your business? This means having a...</p>
-                    </div>
-                </div>
-                <div class="blog-card fade-in">
-                    <div class="blog-image">🚀</div>
-                    <div class="blog-content">
-                        <div class="blog-meta">Startup</div>
-                        <h3>Starting Your Own Business</h3>
-                        <p>Starting your own business? Congratulations! This is an exciting time, but it can be overwhelming...</p>
+
+                    <div class="about-section fade-in">
+                        <div class="about-visual">
+                            <iframe width="100" height="100" src="https://www.youtube.com/embed/9OqC2Zi3Z-E?si=i9QB35Me-EifdgVN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="about-text">
+                            <h3>How We Started</h3>
+                            <p><span class="highlight">Her Power Space</span> is a Woman forward, Men welcoming boutique co-working space, business event venue, and podcast studio, founded by recovering corporate attorney Michelle Y. Talbert.</p>
+                            <p>We exist to serve the business needs of our community, especially <span class="highlight">side hustlers and solopreneurs</span>, who often feel isolated and lack access to resources for success.</p>
+                            <p>We opened our doors on January 12, 2020 and, due to the pandemic, on March 31, 2020 Michelle locked the doors and wouldn't return to the Space until May.</p>
+                            <p><strong>What a first year!</strong></p>
+                            <a href="https://www.youtube.com/watch?v=7ZEkCvKoVig&t=1s" class="video-link" target="_blank">Watch our 6-minute story</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -779,16 +1399,93 @@
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <div class="contact-content fade-in">
-            <h2>Ready to Get Started?</h2>
-            <p>We are here to help you accomplish your goals. Just let us know what you need and our team of experts will provide the perfect solution.</p>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="phone" placeholder="Your Phone">
-                <textarea placeholder="Tell us about your needs..." rows="4"></textarea>
-                <button type="submit">Send Message</button>
-            </form>
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Get In Touch</h2>
+                <p>Ready to take your business to the next level? Contact us today!</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <strong>Address</strong><br>
+                            4300 N. University Drive, Suite F-100, Lauderhill FL 33351
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-telephone"></i>
+                        <div>
+                            <strong>Phone</strong><br>
+                            <a href="tel:+1234567890"> 754-210-9861</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-envelope"></i>
+                        <div>
+                            <strong>Email</strong><br>
+                            <a href="mailto:team@herpowerspace.com">team@herpowerspace.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-clock"></i>
+                        <div>
+                            <strong>Business Hours</strong><br>
+                            Monday - Friday 9 AM -5 PM<br>
+                            Weekends  By Reservation only
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interest</label>
+                            <select id="service" name="service">
+                                <option value="">Select a service</option>
+                                <option value="start-up">START UP Package</option>
+                                <option value="boss-up">BOSS UP Package</option>
+                                <option value="higher-up">HIGHER UP Package</option>
+                                <option value="other">Other Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your business needs..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="bi bi-send"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" id="find">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Find Us</h2>
+                <p>Visit us at our location in Lauderhill, Florida</p>
+            </div>
+            <div id="googleMap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d612.9698528282552!2d-80.25093316790114!3d26.178520141243677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f2743d1ae71%3A0x1859ee7b97870656!2sHer%20Power%20Space%20-%20Coworking%20%26%20Business%20Events!5e0!3m2!1sen!2sph!4v1757939934377!5m2!1sen!2sph" width="600" height="450" style="border:0; width: 100%; height: 400px; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
         </div>
     </section>
 
@@ -798,42 +1495,42 @@
             <div class="footer-section">
                 <h3>Solutions</h3>
                 <ul>
-                    <li><a href="#">Private Offices</a></li>
-                    <li><a href="#">Shared Workspace</a></li>
-                    <li><a href="#">Meeting Rooms</a></li>
-                    <li><a href="#">Virtual Offices</a></li>
+                    <li><a href="#services">Private Offices</a></li>
+                    <li><a href="#services">Shared Workspace</a></li>
+                    <li><a href="#services">Meeting Rooms</a></li>
+                    <li><a href="#services">Virtual Offices</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Who We Serve</h3>
                 <ul>
-                    <li><a href="#">Startups</a></li>
-                    <li><a href="#">Small Business</a></li>
-                    <li><a href="#">Freelancers</a></li>
-                    <li><a href="#">Remote Teams</a></li>
+                    <li><a href="#about">Startups</a></li>
+                    <li><a href="#about">Small Business</a></li>
+                    <li><a href="#about">Freelancers</a></li>
+                    <li><a href="#about">Remote Teams</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3>Locations</h3>
+                <h3>Services</h3>
                 <ul>
-                    <li><a href="#">Florida</a></li>
-                    <li><a href="#">California</a></li>
-                    <li><a href="#">New York</a></li>
-                    <li><a href="#">Texas</a></li>
+                    <li><a href="#services">Virtual Office</a></li>
+                    <li><a href="#services">Co-working Space</a></li>
+                    <li><a href="#services">Event Space</a></li>
+                    <li><a href="#services">Notary Services</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Resources</h3>
                 <ul>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Case Studies</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#services">Pricing</a></li>
+                    <li><a href="#contact">Support</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Starthub Centers. All rights reserved.</p>
+            <p>&copy; 2025 Her Power Space. All rights reserved.</p>
         </div>
     </footer>
 
@@ -849,49 +1546,34 @@
         // Header Scroll Effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.12)';
             } else {
-                header.style.background = '#fff';
-                header.style.backdropFilter = 'none';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
             }
         });
 
-        // Smooth Scrolling
+        // Smooth Scrolling for Navigation Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = document.getElementById('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
+                
+                // Close mobile menu if open
+                navLinks.classList.remove('active');
             });
         });
-
-        // Testimonial Slider
-        let currentTestimonial = 0;
-        const testimonials = document.querySelectorAll('.testimonial');
-        const dots = document.querySelectorAll('.slider-dot');
-
-        function showTestimonial(index) {
-            testimonials[currentTestimonial].classList.remove('active');
-            dots[currentTestimonial].classList.remove('active');
-            
-            currentTestimonial = index;
-            
-            testimonials[currentTestimonial].classList.add('active');
-            dots[currentTestimonial].classList.add('active');
-        }
-
-        // Auto-advance testimonials
-        setInterval(() => {
-            const nextIndex = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(nextIndex);
-        }, 5000);
 
         // Fade-in Animation on Scroll
         const observerOptions = {
@@ -912,134 +1594,36 @@
             observer.observe(el);
         });
 
+        // Service Button Click Handlers
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const serviceTitle = this.closest('.service-card').querySelector('.service-title').textContent;
+                alert(`Thank you for your interest in the ${serviceTitle} package! We'll contact you soon to discuss your needs.`);
+            });
+        });
+
+        // Category Button Click Handlers
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const categoryTitle = this.closest('.category-card').querySelector('h3').textContent;
+                const buttonText = this.textContent.trim();
+                alert(`Thank you for your interest in ${categoryTitle}! We'll help you ${buttonText.toLowerCase()} soon.`);
+            });
+        });
+
         // Contact Form Handling
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
-            const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const phone = this.querySelector('input[type="phone"]').value;
-            const message = this.querySelector('textarea').value;
+            const name = this.querySelector('#name').value;
+            const email = this.querySelector('#email').value;
+            const phone = this.querySelector('#phone').value;
+            const service = this.querySelector('#service').value;
+            const message = this.querySelector('#message').value;
             
-            // Show success message (replace with actual form submission logic)
+            // Show success message
             alert(`Thank you, ${name}! We'll get back to you soon at ${email}.`);
-            
-            // Reset form
             this.reset();
         });
-
-        // Dynamic Stats Counter Animation
-        function animateCounter(element, target) {
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(current).toLocaleString();
-            }, 20);
-        }
-
-        // Animate stats when they come into view
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statItems = entry.target.querySelectorAll('.stat-item h3');
-                    statItems.forEach((item, index) => {
-                        const targets = [2015, 4, 10000, 24];
-                        const originalText = item.textContent;
-                        
-                        if (index === 0) {
-                            // Year - no animation needed
-                            return;
-                        } else if (index === 2) {
-                            // 10,000+ clients
-                            animateCounter(item, 10000);
-                            setTimeout(() => {
-                                item.textContent = '10,000+';
-                            }, 1000);
-                        } else {
-                            animateCounter(item, targets[index]);
-                        }
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) {
-            statsObserver.observe(statsSection);
-        }
-
-        // Parallax Effect for Hero Section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
-
-        // Service Card Hover Effects
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.2)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            });
-        });
-
-        // Blog Card Click Handler
-        document.querySelectorAll('.blog-card').forEach(card => {
-            card.addEventListener('click', function() {
-                // In a real implementation, this would navigate to the blog post
-                const title = this.querySelector('h3').textContent;
-                alert(`Navigating to: ${title}`);
-            });
-        });
-
-        // Feature Card Animation Delay
-        document.querySelectorAll('.feature-card').forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.2}s`;
-        });
-
-        // Loading Animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // CTA Button Pulse Effect
-        setInterval(() => {
-            const ctaButtons = document.querySelectorAll('.cta-button, .btn-primary');
-            ctaButtons.forEach(btn => {
-                btn.style.animation = 'pulse 0.5s ease';
-                setTimeout(() => {
-                    btn.style.animation = '';
-                }, 500);
-            });
-        }, 10000);
-
-        // Add pulse keyframes to CSS dynamically
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
-</body>
-</html>
